@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+</head>
+
+<body>
+	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+    {block content}
+	Hello World
+    {/block}
+    <ul class="navig">
+			<li><a n:href="Home:">Home</a></li>
+			{if $user->isLoggedIn()}
+				<li><a n:href="Sign:out">Sign out</a></li>
+			{else}
+				<li><a n:href="Sign:in">Sign in</a></li>
+			{/if}
+</ul>
+	    {block scripts}
+	    <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	{/block}
+	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
+    	{$flash->message}
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+services:
+	- App\Router\RouterFactory::createRouter
+	- App\Model\PostFacade
+
+security:
+	users:
+		admin: secret  # user 'admin', password 'secret'
+
+search:
+	-	in: %appDir%
+		classes:
+			- *Factory
+			- *Facade
