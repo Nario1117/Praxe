@@ -8,6 +8,8 @@
 			<h2><a href="{link Post:show $post->id}">{$post->title}</a></h2>
 
 			<div>{$post->content|truncate:256}</div>
+			<div>Overall rating<b> {$overAllReview[$post->id]}/10</b></div>
+			<div>Count of reviews {$overAllReviewCount[$post->id]}</div>
 		</div>
 	{/foreach}
 	<a n:href="Edit:create" n:if="$user->isLoggedIn()">Create post</a>

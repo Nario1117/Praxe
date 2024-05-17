@@ -10,7 +10,7 @@ final class PostFacade
     ) {
     }
 
-    public function getPublicArticles()
+    public function getPublicArticles(): Nette\Database\Table\Selection
     {
         return $this->database
             ->table('posts')
