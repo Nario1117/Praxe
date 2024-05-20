@@ -13,11 +13,7 @@
 	<div class="post">{$post->content}</div>
 
 
-	<h2>Post new comment</h2>
-	{control commentForm}
 
-	<h2>Post new review</h2>
-	{control reviewForm}
 
 	<a n:href="Edit:edit $post->id">Edit this post</a>
 
@@ -31,22 +27,15 @@
 
 			<div>{$comment->content}</div>
 		{/foreach}
+			<h2>Post new comment</h2>
+	{control commentForm}
 	</div>
 
-
 	<h2>Reviews</h2>
-
 	<div class="review">
-		{foreach $reviews as $review}
-			<b>{$review->name}
-					</a> said:</b>
-
-			<div>{$review->content|truncate:1000}</div>
-			<div>{$review->review}/10</div>
-			<br>
-			<br>
-		{/foreach}
-		<div>Over all rating <b>{$overAllReview |number:2}/10</b></div>
-		<div>Count of reviews <b>{$overAllReviewCount}</b></div>
+		{control review:list, $post}
+		{control review:summary, $post}
+		<h2>Post new review</h2>
+		{control review:form}
 	</div>
 {/block}

@@ -1,6 +1,7 @@
 services:
 	- App\Router\RouterFactory::createRouter
 	- App\Model\PostFacade
+	- App\Components\ReviewControlFactory
 
 security:
 	users:

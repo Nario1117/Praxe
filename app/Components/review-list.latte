@@ -1,0 +1,9 @@
+{foreach $reviews as $review}
+	<b>{$review->name}
+		</a> said:</b>
+
+	<div>{$review->content|truncate:1000}</div>
+	<div>{$review->review}/10</div>
+	<br>
+	<br>
+{/foreach}
