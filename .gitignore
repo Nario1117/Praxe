@@ -1,0 +1,11 @@
+.idea
+config/local.neon
+www/*
+!www/.htaccess
+!www/favicon.ico
+!www/index.php
+vendor
+temp
+log
+bin
+
