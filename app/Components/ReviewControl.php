@@ -88,4 +88,14 @@ class ReviewControl extends Control
 		$this->flashMessage('Thank you for your review', 'success');
 		$this->redirect('this');
 	}
+
+	public function handleClick(string $id): void
+	{
+		if (!$this->getPresenter()->getUser()->isLoggedIn()) {
+			$this->getPresenter()->redirect('Sign:in');
+		}
+
+			$ult = $this->database->query('DELETE FROM review WHERE id = '.$id);
+
+	}
 }

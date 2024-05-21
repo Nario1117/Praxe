@@ -3,7 +3,8 @@
 		</a> said:</b>
 
 	<div>{$review->content|truncate:1000}</div>
-	<div>{$review->review}/10</div>
+	<div>{$review->review|number:2} /10</div>
+	<a n:href="click! $review->id"><button  style="border-radius: 50px; width: 22px; height: 22px">x</button></a>
 	<br>
 	<br>
 {/foreach}
