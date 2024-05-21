@@ -26,20 +26,12 @@ class ReviewControl extends Control
 
 	public function renderSummary(ActiveRow $post): void
 	{
-		$reviews = $post->related('review');
-		$overAllRating = 0;
-		foreach ($reviews as $review) {
-			$overAllRating += $review->review;
-		}
-		if (count($reviews) != 0) {
-			$overAllRating = $overAllRating / count($reviews);
-			$oAR = $overAllRating;
-		} else {
-			$oAR = 0;
-		}
-		$oARCount = count($reviews);
-		$this->template->oAR = $oAR;
-		$this->template->oARCount = $oARCount;
+		$id = $post->id;
+		$promena = $this->database->query('SELECT SUM(review), COUNT(review) FROM `review` WHERE `post_id` = '.$id)->fetchAll();
+		$result = $promena[0];
+		$this->template->oAR = $result[0]/$result[1];
+		$this->template->oARCount = $result[1];
+
 		$this->template->render(__DIR__ . "/review-summary.latte");
 	}
 
