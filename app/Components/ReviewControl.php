@@ -27,9 +27,13 @@ class ReviewControl extends Control
 	public function renderSummary(ActiveRow $post): void
 	{
 		$id = $post->id;
-		$promena = $this->database->query('SELECT SUM(review), COUNT(review) FROM `review` WHERE `post_id` = '.$id)->fetchAll();
+		$promena = $this->database->query('SELECT SUM(review), COUNT(review) FROM `review` WHERE `post_id` = ' . $id)->fetchAll();
 		$result = $promena[0];
-		$this->template->oAR = $result[0]/$result[1];
+		$this->template->oAR = 0;
+		if ($result[1] != 0) {
+			$this->template->oAR = $result[0] / $result[1];
+
+		}
 		$this->template->oARCount = $result[1];
 
 		$this->template->render(__DIR__ . "/review-summary.latte");
@@ -43,7 +47,7 @@ class ReviewControl extends Control
 		$this->template->render(__DIR__ . "/review-list.latte");
 	}
 
-	public function renderForm(ActiveRow $post): void
+	public function renderForm(): void
 	{
 		$this->template->render(__DIR__ . "/review-form.latte");
 	}

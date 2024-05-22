@@ -32,22 +32,24 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 
 	private function postFormSucceeded(array $data): void
 	{
+		$postId = $this->getParameter('postId');
 		/** @var Nette\Http\FileUpload $postImg */
 		$postImg = $data["PostImg"];
-		$imgDir = "/www/img/";
-		$imgPathInfo =  pathinfo($postImg->getUntrustedName());
-		$imgFilename =  $imgPathInfo["filename"];
-		$imgExtention =  $imgPathInfo["extension"];
 
-		\Tracy\Debugger::barDump($postImg->getUntrustedName());
-		\Tracy\Debugger::barDump(pathinfo($postImg->getUntrustedName()));
+		if ($postImg->isImage()) {
+			$imgDir = "/www/img/";
+			$imgPathInfo = pathinfo($postImg->getUntrustedName());
+			$imgFilename = $imgPathInfo["filename"];
+			$imgExtention = $imgPathInfo["extension"];
 
-		$file = Nette\Utils\Strings::webalize($imgFilename) . "." . $imgExtention;
-		move_uploaded_file($postImg->getTemporaryFile(), __DIR__ . "/../../www/img/" . $file);
-		$postId = $this->getParameter('postId');
-		$data["img"] = "/nette-blog/www/img/" . $file;
-		unset($data["PostImg"]);
-
+			$file = Nette\Utils\Strings::webalize($imgFilename) . "." . $imgExtention;
+			move_uploaded_file($postImg->getTemporaryFile(), __DIR__ . "/../../www/img/" . $file);
+			$data["img"] = "/nette-blog/www/img/" . $file;
+			unset($data["PostImg"]);
+		} else{
+			unset($data["img"]);
+			unset($data["PostImg"]);
+		}
 		if ($postId) {
 			$post = $this->database
 				->table('posts')
@@ -61,7 +63,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 		}
 
 		$this->flashMessage('Post was published', 'success');
-		$this->redirect('Post:show', $post->id);
+		$this->redirect('Post:show', ["postId" => $post->id]);
 	}
 
 	public function renderEdit(int $postId): void
