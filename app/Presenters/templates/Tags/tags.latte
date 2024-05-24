@@ -1,0 +1,14 @@
+{block content}
+<h1>Tags</h1>
+
+<p>You can delete or add tags</p>
+
+<h2>Add</h2>
+{control addTags}
+
+{foreach $tags as $tag}
+	<div>
+		<a n:href="click! $tag->id"><button  style="border-radius: 50px; width: 22px; height: 22px">x</button></a>   {$tag["name"]}
+		<a n:href=":edit $tag->id"><button style="padding: 1px">Edit</button></a>
+	</div>
+{/foreach}

@@ -9,25 +9,28 @@
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
-    {block content}
+{block content}
 	Hello World
-    {/block}
-    <ul class="navig">
-			<li><a n:href="Home:">Home</a></li>
-			{if $user->isLoggedIn()}
-				<li><a n:href="Sign:out">Sign out</a></li>
-			{else}
-				<li><a n:href="Sign:in">Sign in</a></li>
-			{/if}
+{/block}
+
+
+<ul class="navig">
+		<li><a n:href="Home:">Home</a></li>
+		{if $user->isLoggedIn()}
+			<li><a n:href="Sign:out">Sign out</a></li>
+			<li><a n:href="Tags:tags">Tags</a></li>
+		{else}
+			<li><a n:href="Sign:in">Sign in</a></li>
+		{/if}
 </ul>
 	    {block scripts}
-	    <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
-	{/block}
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
-    	{$flash->message}
-    </div>
+	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+{/block}
+<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
+	{$flash->message}
+</div>
 
 
 </body>
